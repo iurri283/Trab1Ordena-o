@@ -1,0 +1,85 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdlib.h>
+#include <time.h>
+
+void inicializa_vetor_aleatorio (int vet[], int n)
+{
+    for(int i =0;i < n;i++)
+        vet[i] = rand();
+}
+void inicializa_vetor_crescente (int vet[], int n)
+{
+    for(int i =0;i < n;i++)
+        vet[i] = i;
+}
+void inicializa_vetor_decrescente (int vet[], int n)
+{
+    for(int i=0;i < n;i++)
+        vet[i] = n-i;
+}
+
+void selectionSortSausage(int a[], int n) {
+    int i;
+    for (i = 0; i < n - 1; i++) {
+        int minIndex = i;
+        int k;
+        for (k = i + 1; k < n; k++) {
+            if (a[minIndex] > a[k]) {
+                minIndex = k;
+            }
+        }
+        int temp = a[i];
+        a[i] = a[minIndex];
+        a[minIndex] = temp;
+    }
+}
+
+int main()
+{
+    srand(time(NULL));
+    int n = 100000;
+    int v[n];
+
+
+    //-------------------VETOR ALEATÓRIO------------------
+    inicializa_vetor_aleatorio(v,n);
+
+    double inicio, fim, t_percorrido;
+    inicio = (double) clock()/CLOCKS_PER_SEC;
+
+    selectionSortSausage(v,n);
+
+    fim = (double) clock()/CLOCKS_PER_SEC;
+
+    t_percorrido = fim - inicio;
+    printf("\nTempo de execucao do vetor ordenado aleatoriamente: %f\n",t_percorrido);
+
+
+    //-------------------VETOR CRESCENTE------------------
+
+    inicializa_vetor_crescente(v,n);
+
+    inicio = (double) clock()/CLOCKS_PER_SEC;
+    selectionSortSausage(v,n);
+    fim = (double) clock()/CLOCKS_PER_SEC;
+
+    t_percorrido = fim - inicio;
+    printf("\nTempo de execucao do vetor ordenado crescentemente: %f\n",t_percorrido);
+
+    //-------------------VETOR DECRESCENTE------------------
+
+    inicializa_vetor_decrescente(v,n);
+
+    inicio = (double) clock()/CLOCKS_PER_SEC;
+
+    selectionSortSausage(v,n);
+
+    fim = (double) clock()/CLOCKS_PER_SEC;
+
+    t_percorrido = fim - inicio;
+    printf("\nTempo de execucao do vetor ordenado decrescentemente: %f\n",t_percorrido);
+
+
+    return 0;
+}
