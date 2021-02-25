@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdlib.h>
+#include <time.h>
+
+void inicializa_vetor_aleatorio (int vet[], int n)
+{
+    for(int i =0;i < n;i++)
+        vet[i] = rand();
+}
+void inicializa_vetor_crescente (int vet[], int n)
+{
+    for(int i =0;i < n;i++)
+        vet[i] = i;
+}
+void inicializa_vetor_decrescente (int vet[], int n)
+{
+    for(int i=0;i < n;i++)
+        vet[i] = n-i;
+}
+
+void bubbleSort(int array[], int tamanho)
+{
+    int i, j;
+    for(i = tamanho - 1; i > 0; i--) {
+        for(j = 0; j < i; j++) {
+            if(array[j] > array[j+1])
+            {
+                 int temp;
+                 temp = array[j];
+                 array[j] = array[j+1];
+                 array[j+1] = temp;
+            }
+        }
+    }
+}
+
+int main()
+{
+    srand(time(NULL));
+    int n = 100000;
+    int v[n];
+
+
+    //-------------------VETOR ALEATÓRIO------------------
+    inicializa_vetor_aleatorio(v,n);
+
+    double inicio, fim, t_percorrido;
+
+    inicio = (double) clock()/CLOCKS_PER_SEC;
+    bubbleSort(v,n);
+    fim = (double) clock()/CLOCKS_PER_SEC;
+
+    t_percorrido = fim - inicio;
+    printf("\nTempo de execucao do vetor ordenado aleatoriamente: %f\n",t_percorrido);
+
+
+    //-------------------VETOR CRESCENTE------------------
+
+    inicializa_vetor_crescente(v,n);
+
+    inicio = (double) clock()/CLOCKS_PER_SEC;
+    bubbleSort(v,n);
+    fim = (double) clock()/CLOCKS_PER_SEC;
+
+    t_percorrido = fim - inicio;
+    printf("\nTempo de execucao do vetor ordenado crescentemente: %f\n",t_percorrido);
+
+    //-------------------VETOR DECRESCENTE------------------
+
+    inicializa_vetor_decrescente(v,n);
+
+    inicio = (double) clock()/CLOCKS_PER_SEC;
+    bubbleSort(v,n);
+    fim = (double) clock()/CLOCKS_PER_SEC;
+
+    t_percorrido = fim - inicio;
+    printf("\nTempo de execucao do vetor ordenado decrescentemente: %f\n",t_percorrido);
+
+
+    return 0;
+}
