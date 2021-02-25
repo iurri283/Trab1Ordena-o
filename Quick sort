@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdlib.h>
+#include <time.h>
+
+void inicializa_vetor_aleatorio (int vet[], int n)
+{
+    for(int i =0;i < n;i++)
+        vet[i] = rand();
+}
+void inicializa_vetor_crescente (int vet[], int n)
+{
+    for(int i =0;i < n;i++)
+        vet[i] = i;
+}
+void inicializa_vetor_decrescente (int vet[], int n)
+{
+    for(int i=0;i < n;i++)
+        vet[i] = n-i;
+}
+
+void quicksort(int values[], int inicio, int fim)
+{
+     int i, j, pivo, aux;
+     i = inicio;
+     j = fim-1;
+     pivo = values[(inicio+fim)/2];
+     while(i <= j)
+     {
+         while(values[i] < pivo && i < fim) i++;
+         while(values[j] > pivo && j > inicio) j--;
+         if(i <= j)
+         {
+             aux = values[i];
+             values[i] = values[j];
+             values[j] = aux;
+             i++;
+             j--;
+         }
+     }
+     if(j > inicio)
+     quicksort(values, inicio, j+1);
+     if(i < fim)
+     quicksort(values, i, fim);
+}
+
+int main()
+{
+    srand(time(NULL));
+    int n = 100000;
+    int v[n];
+
+
+    //-------------------VETOR ALEATÓRIO------------------
+    inicializa_vetor_aleatorio(v,n);
+
+    double inicio, fim, t_percorrido;
+
+    inicio = (double) clock()/CLOCKS_PER_SEC;
+    quicksort(v,0,n);
+    fim = (double) clock()/CLOCKS_PER_SEC;
+
+    t_percorrido = fim - inicio;
+    printf("\nTempo de execucao do vetor ordenado aleatoriamente: %f\n",t_percorrido);
+
+
+    //-------------------VETOR CRESCENTE------------------
+
+    inicializa_vetor_crescente(v,n);
+
+    inicio = (double) clock()/CLOCKS_PER_SEC;
+    quicksort(v,0,n);
+    fim = (double) clock()/CLOCKS_PER_SEC;
+
+    t_percorrido = fim - inicio;
+    printf("\nTempo de execucao do vetor ordenado crescentemente: %f\n",t_percorrido);
+
+    //-------------------VETOR DECRESCENTE------------------
+
+    inicializa_vetor_decrescente(v,n);
+
+    inicio = (double) clock()/CLOCKS_PER_SEC;
+    quicksort(v,0,n);
+    fim = (double) clock()/CLOCKS_PER_SEC;
+
+    t_percorrido = fim - inicio;
+    printf("\nTempo de execucao do vetor ordenado decrescentemente: %f\n",t_percorrido);
+
+
+    return 0;
+}
